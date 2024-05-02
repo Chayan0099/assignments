@@ -1,41 +1,29 @@
 
-import { RecoilRoot, useSetRecoilState } from "recoil";
-import { ColorAtom } from "./components";
-
+import { RecoilRoot, useRecoilValue, useSetRecoilState } from "recoil";
+import { useState } from "react";
 function App(){
+  const [color, setColor] = useState(); 
   return (
-    <div >
-      <ColorBar />
+    <div style={{backgroundColor:color}}>
+      <div className="flex items-center justify-end flex-col w-screen h-screen">
+        <div className="flex gap-7 mb-20"> 
+        <Buttons color="red" setColor={setColor}/>
+        <Buttons color="yellow" setColor={setColor}/>
+        <Buttons color="green" setColor={setColor}/>
+        <Buttons color="purple" setColor={setColor}/>
+        <Buttons color="blue" setColor={setColor}/>
+        <Buttons color="cyan" setColor={setColor}/>
+        </div>
+      </div> 
+     
     </div>
   );
 }
 
-function ColorBar() {
-  const containerStyle = {
-    display: 'flex',
-    gap: '20px',
-    justifyContent: 'center',
-  };
-
-  return (
-    <div style={containerStyle}>
-      <RecoilRoot>
-        <Buttons color="red" />
-        <Buttons color="yellow" />
-        <Buttons color="green" />
-        <Buttons color="purple" />
-        <Buttons color="blue" />
-      </RecoilRoot>
-    </div>
-  );
-}
-
-function Buttons ({ color }) {
-  const setColor = useSetRecoilState(ColorAtom);  
-  const buttonStyle = {
-    backgroundColor: color,
-    padding: '10px 20px',
-  }
+function Buttons ({ color, setColor }) { 
+  return <button onClick={() => { setColor(color)}}className="p-3 text-xl rounded-lg" style={{backgroundColor: color}}>
+    {color}
+  </button>
 }
 
 export default App;
